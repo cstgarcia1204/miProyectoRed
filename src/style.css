@@ -1,0 +1,33 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+
+.general{
+    margin:auto;
+    margin-top: 5%;  
+    background-color: darkturquoise;
+    width: 95%;
+    height: 100%;
+}
+.titulo {
+    width: 60%;
+    height: 40%;
+    text-align: center;
+    background-color: royalblue;
+}
+
+.cuadroProveedores{
+    float: right;
+    margin-top:3%;
+    width: 30%;
+    height: 45%;
+    background-color: palevioletred;
+}
+
+.inputFirestore{
+    margin-top: 3%;
+    width: 60%;
+    height: 50%;
+    background-color: olivedrab;
+}
