@@ -1,0 +1,19 @@
+{
+  "name": "miproyectored",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "firebase": "^6.3.1",
+    "serve": "^11.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "red"
+  ],
+  "author": "ck",
+  "license": "ISC"
+}

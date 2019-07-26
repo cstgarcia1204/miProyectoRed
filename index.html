@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mi Proyecto</title>
+    <link rel="stylesheet" href="style.css"/>
+    
+    <link type="text/css" rel="stylesheet" 
+    href="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.css">
+
+    
+</head>
+<body>
+
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+     Your app may use that space for branding, controls and other customizations.-->
+    <h1>Welcome to this App</h1>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">...</div>
+
+    <!--Aqui empieza la parte de DataBase Firestore-->
+    <h1 id="outputH1">Prueba status:</h1>
+    <input type="textfield" id="latest">
+    <button id="saveButton">Save</button>
+    
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+    <!-- firebase auth-->
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+    <!-- firebase UI-->
+    <script 
+    src="https://cdn.firebase.com/libs/firebaseui/4.1.0/firebaseui.js"></script>
+    <!-- firebase store-->
+    <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>
+    
+    <!--<mis archivos locales>-->
+    <script src="data.js" ></script>
+    <script src="main.js" ></script>
+    
+    
+</body>
+</html>
