@@ -1,0 +1,38 @@
+*{
+    margin:0px;
+    padding: 0px;
+}
+
+.inSession{
+    margin:0 auto;
+    margin-top: 5%;  
+    background-color: orange;
+    width: 95%;
+    height: 100%;
+    text-align: center;
+}
+.inputFirestore{
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 90%;
+    height: 100%;
+    background-color: lawngreen;
+}
+#latest{
+    width: 83%;     
+}
+
+h1 .outputStyle{
+    flex:right;
+}
+.name{
+    text-align:left;
+    color: purple;
+}
+.photoProfile{
+    float: left;
+    width: 15%;
+    height: 15%;
+    border-radius: 55%;
+    border: purple 3px groove;
+}

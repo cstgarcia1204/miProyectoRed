@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sesión RED</title>
+    <link rel="stylesheet" href="logStyle.css"/>
+</head>
+<body>
+    <div class="inSession">
+        <h1>Felicidades ya entraste!!!!</h1>
+        <!--Aqui empieza la parte de DataBase Firestore-->
+        <div id="firestoreDiv" class="inputFirestore">
+            <div class="photo"></div>
+            <div class="name"></div>
+            <input type="textfield" id="latest" placeholder="¿Qué estás pensando?">
+            <button id="saveButton">Postear</button>
+        </div>
+        <br><br><br>
+        <h1 id="outputH1" calss="outputStyle">Prueba status:</h1>
+        <br><br><br>     
+    </div>
+    <div class="usuariOnLine">
+        <input type="textfield" id="inputUsuario" >
+        <button id="btnPublicar">Publicar en Red</button>
+    </div>
+    <br><br><br>
+    <h3 id="imprimirPublicacion">Posteando...:</h3>
+    <br><br><br> 
+    <div>
+        <button id="loguedOut">Log Out</button>
+    </div>
+
+
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+    <!-- firebase auth-->
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase-auth.js"></script>
+    <!-- firebase store-->
+    <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>
+    
+    <!--<mis archivos locales>-->
+    <script src="data.js" ></script>
+    <script src="logIn.js" ></script>
+    
+</body>
+</html>

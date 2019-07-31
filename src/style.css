@@ -11,23 +11,15 @@
     height: 100%;
 }
 .titulo {
-    width: 60%;
-    height: 40%;
+    margin: 0 auto;
+    width: 90%;
+    height: 70%;
     text-align: center;
     background-color: royalblue;
 }
 
 .cuadroProveedores{
-    float: right;
-    margin-top:3%;
-    width: 30%;
-    height: 45%;
+    
+    margin: 0 auto;
     background-color: palevioletred;
-}
-
-.inputFirestore{
-    margin-top: 3%;
-    width: 60%;
-    height: 50%;
-    background-color: olivedrab;
 }
