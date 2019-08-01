@@ -14,7 +14,7 @@ firebase.auth().onAuthStateChanged(function(user){
         document.querySelector('.name   ').innerHTML=`<h2>${dataPerfil.name}</h2>`;
         const setUidUsuario=firebase.firestore().collection('usuarios').doc (dataPerfil.id);
         setUidUsuario.set({
-            wallUsuario:"",
+            wallUsuario:[],
             media:"",
             name:user.displayName,
             email: user.email
@@ -42,8 +42,8 @@ let firestore= firebase.firestore();
   buttonSave.addEventListener('click',function(){
     const textToSave=inputText.value;
     console.log('Guardando '+textToSave+' a Firestore');
-    return docReference.set({  
-        'wallUsuario':textToSave
+    return docReference.update({  
+        wallUsuario:firebase.firestore.FieldValue.arrayUnion(textToSave)
 
     }).then(function(){
         console.log('Post Guardado!!');
