@@ -14,7 +14,7 @@ firebase.auth().onAuthStateChanged(function(user){
         document.querySelector('.name   ').innerHTML=`<h2>${dataPerfil.name}</h2>`;
         const setUidUsuario=firebase.firestore().collection('usuarios').doc (dataPerfil.id);
         setUidUsuario.set({
-            wallUsuario: "",
+            wallUsuario:"",
             media:"",
             name:user.displayName,
             email: user.email
@@ -30,19 +30,57 @@ firebase.auth().onAuthStateChanged(function(user){
 let firestore= firebase.firestore();
 
 
+
 //Siempre se va alternar entre colecciones y documentos const docReference= firestore.collection('samples').doc('laMeraData');
-  const docReference= firestore.doc('usuarioLogueado/suSeccion'); 
+  const docReference= firestore.collection('usuarios').doc('cy3F2GksmFbRRm7L4exWPnCwoQh1'); 
     
   const outputH1= document.querySelector('#outputH1');
   const inputText=document.querySelector('#latest');
   const buttonSave=document.querySelector('#saveButton');
-  const buttonLoad=document.querySelector('#loadButton');
-  const elOtroBoton=document.querySelector('#inputUsuario');
+
 
   buttonSave.addEventListener('click',function(){
+    const textToSave=inputText.value;
+    console.log('Guardando '+textToSave+' a Firestore');
+    return docReference.set({  
+        'wallUsuario':textToSave
+
+    }).then(function(){
+        console.log('Post Guardado!!');
+    }).catch(function(error){
+        console.log('Existe un error', error);
+    })
+});
+
+
+
+//imprimir publicacion en tiempo real
+postEnTiempoReal = function(){
+    docReference.onSnapshot(function(doc){
+      if(doc && doc.exists){
+          const dataUsuario= doc.data();
+          console.log('Verificando la data que estoy recibiendo: ',doc);
+          console.log(dataUsuario);
+          outputH1.innerHTML=''+dataUsuario.wallUsuario;
+      }
+
+    })
+}
+
+postEnTiempoReal();
+
+
+  //para boton logOut devuelva a index.html
+document.getElementById('loguedOut').addEventListener('click',function(){
+    firebase.auth().signOut();
+    location.href='http://localhost:5000/src/';
+});
+
+
+ /* buttonSave.addEventListener('click',function(){
       const textToSave=inputText.value;
       const otroText=elOtroBoton.value;
-      console.log('Im going to save '+textToSave+otroText+' to Firestore');
+      console.log('Guardando '+textToSave+' a Firestore');
       docReference.set({    
           losPosts: textToSave,
           misFotos: otroText
@@ -53,7 +91,7 @@ let firestore= firebase.firestore();
           console.log('Existe un error', error);
       })
   });
-
+*/
   /*Esta es la otra forma de imprimir en HTML a traves de un evento del boton "load"
   buttonLoad.addEventListener('click',function(){
       docReference.get().then(function(doc){
@@ -66,21 +104,9 @@ let firestore= firebase.firestore();
       })
   });*/
 //Funcion para imprimir en tiempo real los cambios
-  function obtenerDatosEnTiempoReal(){
-      docReference.onSnapshot(function(doc){
-        if(doc && doc.exists){
-            const myData= doc.data();
-            console.log('Verificando la data que estoy recibiendo: ',doc);
-            outputH1.innerHTML='Mi post es: '+myData.losPosts+myData.misFotos;
-        };
 
-      })
-  }
-
-  obtenerDatosEnTiempoReal();
 
 //-------------------------------------------------------------------------------
-
 /*firestore.collection("usuarios").valueChanges().map(document => {
     return document(a => {
       const data = a.payload.doc.data();//Here is your content
@@ -150,8 +176,3 @@ postEnTiempoReal();
 
 
 
-//para boton logOut devuelva a index.html
-document.getElementById('loguedOut').addEventListener('click',function(){
-    firebase.auth().signOut();
-    location.href='http://localhost:5000/src/';
-  });
