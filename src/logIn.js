@@ -1,3 +1,12 @@
+//AQUI INICIA DATABASE- FIRESTORE
+let firestore= firebase.firestore();
+//Siempre se va alternar entre colecciones y documentos const docReference= firestore.collection('samples').doc('laMeraData');
+  const docReference= firestore.collection('users'); 
+    
+  const outputH1= document.querySelector('#outputH1');
+  const inputText=document.querySelector('#latest');
+  const buttonSave=document.querySelector('#saveButton');
+
 //En pagina logIn crea la foto, mail y el id
 firebase.auth().onAuthStateChanged(function(user){
     if (user){
@@ -9,65 +18,76 @@ firebase.auth().onAuthStateChanged(function(user){
             id: user.uid
 
         }
-        console.log('El usuario activo es: '+dataPerfil.name+ dataPerfil.email+dataPerfil.img+dataPerfil.id);
+        console.log('El usuario activo es: '+dataPerfil.name+'br'+dataPerfil.email+'br'+dataPerfil.img+'br'+dataPerfil.id);
         document.querySelector('.photo').innerHTML=`<img class="photoProfile" src="${dataPerfil.img}" alt="photo">`;
         document.querySelector('.name   ').innerHTML=`<h2>${dataPerfil.name}</h2>`;
-        const setUidUsuario=firebase.firestore().collection('usuarios').doc (dataPerfil.id);
-        setUidUsuario.set({
-            wallUsuario:[],
-            media:"",
-            name:user.displayName,
-            email: user.email
+        const setUsuario=firestore.collection('users').doc();
+        //const setUsuario=firestore.collection('users').doc('mensajes');
+        setUsuario.set({
+            wallUsuario:[''],
+            uid: dataPerfil.id,
+            email:dataPerfil.email
 
+        });
+        const referenceToUpdate=setUsuario.id;
+        console.log(referenceToUpdate);
+        buttonSave.addEventListener('click',function(){
+            const textToSave=inputText.value;
+            console.log('Guardando '+textToSave+' a Firestore');
+            //actualizando en la carpeta con el id generado automaticamente
+            return firestore.collection('users').doc(referenceToUpdate).update({  
+                wallUsuario:firebase.firestore.FieldValue.arrayUnion(textToSave)
+        
+            }).then(function(){
+                console.log('Post Guardado!!');
+                inputText.value="";
+            }).catch(function(error){
+                console.log('Existe un error', error);
+            })
+            
+            
         });
     }
 });
 
-
-
-
-//AQUI INICIA DATABASE- FIRESTORE
-let firestore= firebase.firestore();
-
-
-
-//Siempre se va alternar entre colecciones y documentos const docReference= firestore.collection('samples').doc('laMeraData');
-  const docReference= firestore.collection('usuarios').doc('cy3F2GksmFbRRm7L4exWPnCwoQh1'); 
-    
-  const outputH1= document.querySelector('#outputH1');
-  const inputText=document.querySelector('#latest');
-  const buttonSave=document.querySelector('#saveButton');
-
-
-  buttonSave.addEventListener('click',function(){
-    const textToSave=inputText.value;
-    console.log('Guardando '+textToSave+' a Firestore');
-    return docReference.update({  
-        wallUsuario:firebase.firestore.FieldValue.arrayUnion(textToSave)
-
-    }).then(function(){
-        console.log('Post Guardado!!');
-    }).catch(function(error){
-        console.log('Existe un error', error);
-    })
-});
-
-
-
+/*inicia la parte de imprimir
 //imprimir publicacion en tiempo real
-postEnTiempoReal = function(){
-    docReference.onSnapshot(function(doc){
-      if(doc && doc.exists){
-          const dataUsuario= doc.data();
-          console.log('Verificando la data que estoy recibiendo: ',doc);
-          console.log(dataUsuario);
-          outputH1.innerHTML=''+dataUsuario.wallUsuario;
-      }
+function postEnTiempoReal(){
+    firestore.collection('users').onSnapshot(function(doc){
+        console.log(doc);
+        if(doc && doc.exists){
+            const dataUsuario= doc.data();
+            console.log('Verificando la data que estoy recibiendo: ',doc);
+            //console.log(dataUsuario);
+          let impr=dataUsuario.wallUsuario;
+          console.log(impr);
+          //outputH1.innerHTML=''+dataUsuario.wallUsuario[impr.length-1];
+          outputH1.innerHTML=''+dataUsuario.wallUsuario;    
+      }else(console.log('No esta funcionando'));
 
     })
-}
-
+};
 postEnTiempoReal();
+*/
+
+//inicia la parte de imprimir
+//imprimir publicacion en tiempo real
+function postEnTiempoReal(){
+    firestore.collection('users').onSnapshot(snapshot =>{
+        
+        let changes= snapshot.docChanges();
+        //console.log(changes);
+        //console.log(change.doc.data());
+        changes.forEach(change=>{
+
+            console.log(change.doc.data());
+            outputH1.innerHTML=`<section>${change.doc.data().wallUsuario[change.doc.data().wallUsuario.length-1]}</section>`;
+        })   
+    })
+};
+postEnTiempoReal();
+
+
 
 
   //para boton logOut devuelva a index.html
